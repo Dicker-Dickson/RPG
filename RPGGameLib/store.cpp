@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "store.h"
-#include "Item.h"
-#include "ItemData.h"
+#include "item.h"
+#include "item_data.h"
 
 Store::Store()
 {

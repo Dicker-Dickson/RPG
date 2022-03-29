@@ -2,13 +2,13 @@
 #define BATTLE_SCENCE_H
 
 #include "adventurer.h"
-#include "GlobalInfo.h"
-#include "Monster.h"
+#include "global_info.h"
+#include "monster.h"
 #include <iostream>
 #include <windows.h>
-#include "ItemData.h"
-#include "MapData.h"
-#include "User.h"
+#include "item_data.h"
+#include "map_data.h"
+#include "user.h"
 
 #define MAXBARLEN 100
 

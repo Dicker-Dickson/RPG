@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
-#include "Monster.h"
-#include "MonsterData.h"
-#include "def.h"
+#include "monster.h"
+#include "monster_data.h"
+#include "definition.h"
 
 using namespace std;
-Monster::Monster(int initHP, int initSP, int initMP, int initrough, string init_name, string init_eng_name_) : LifeEntity(initHP, initSP, initMP, init_name), rough_degree_(initrough), eng_name_(init_eng_name_) {
+Monster::Monster(int initHP, int initSP, int initMP, int initrough, string init_name, string init_eng_name_) : LifeEntity(initHP, initSP, initMP, init_name), rough_degree_(initrough) {
 	counter_for_monster_id_++;
 	cout << "one monster called " << init_name << " (" << init_eng_name_ << ") is created with <hp_,mp_, sp_, rough, level, exp> = <"
 		<< initHP << ", " << initMP << ",¡@" << initSP << ", " << initrough << ">" << ", " << endl;
@@ -16,7 +16,6 @@ Monster::Monster(const MonsterType *type) :
 	rough_degree_(type->max_rough) {
 	counter_for_monster_id_++;
 
-	eng_name_ = type->prefix_eng_name + to_string((long double)counter_for_monster_id_);
 	cout << type->name << "/ µ¥¯Å=" << type->level << " HP=" << this->GetHP() << " SP=" << this->GetSP() << " Rough=" << this->GetRough() << endl;
 	id_ = type->id;
 }
@@ -50,12 +49,7 @@ int Monster::Defense() {
 }
 
 int Monster::IsA() {
-	return emonster;
-}
-
-string Monster::GetBasicData() {
-	string output = this->GetName() + string("(") + this->eng_name_ + string(") <hp_, sp_, rough> = <") + to_string((long double)this->GetHP()) + string(", ") + to_string((long double)this->GetSP()) + string(", ") + to_string((long double)this->GetRough()) + string(">");
-	return output;
+	return MONSTER;
 }
 
 int Monster::GetMonsterId()

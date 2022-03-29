@@ -4,7 +4,7 @@
 
 class ItemData;
 class MapData;
-class CCmdParser;
+class CmdParser;
 class User;
 class MonsterData;
 class AdventurerData;
@@ -16,7 +16,7 @@ class CGlobalInfo {
 public:
 	static ItemData *itm_data;
 	static MapData *map_data;
-	static CCmdParser *parser;
+	static CmdParser *parser;
 	static User *user;
 	static MonsterData *monster_data;
 	static AdventurerData* adventurer_data;

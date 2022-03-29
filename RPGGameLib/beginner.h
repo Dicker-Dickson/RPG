@@ -3,7 +3,7 @@
 
 #include "adventurer.h"
 #include <iostream>
-#include "def.h"
+#include "definition.h"
 using namespace std;
 
 class Beginner : public Adventurer

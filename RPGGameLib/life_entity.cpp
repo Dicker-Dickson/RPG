@@ -1,7 +1,7 @@
 #include <iostream>
 #include <Windows.h>
-#include "GlobalInfo.h"
-#include "LifeEntity.h"
+#include "global_info.h"
+#include "life_entity.h"
 
 LifeEntity::LifeEntity(int initHP, int initSP, int initMP, string initname, int initlevel, int initexp) {
 	max_sp_ = sp_ = initSP;

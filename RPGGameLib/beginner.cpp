@@ -48,7 +48,7 @@ void Beginner::LearnSkill(int id)
 
 int Beginner::IsA()
 {
-	return beginner;
+	return BEGINNER;
 }
 
 int Beginner::GetSkillNumber()

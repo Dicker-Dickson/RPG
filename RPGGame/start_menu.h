@@ -1,7 +1,7 @@
 #ifndef START_MENU_H
 #define START_MENU_H
 
-#include "GlobalInfo.h"
+#include "global_info.h"
 #include "adventurer_data.h"
 #include <iostream>
 #include <windows.h>

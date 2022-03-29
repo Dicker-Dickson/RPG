@@ -1,8 +1,8 @@
 #include <iostream>
-#include "Item.h"
+#include "item.h"
 #include "food.h"
-#include "LifeEntity.h"
-#include "def.h"
+#include "life_entity.h"
+#include "definition.h"
 
 using namespace std;
 
@@ -19,8 +19,8 @@ int Food::GetBonous()
 	return bonus_hp;
 }
 
-void Food::beUsed(LifeEntity *le) {
-	cout << "使用食物" << getName() << ", ";
+void Food::BeUsed(LifeEntity *le) {
+	cout << "使用食物" << GetName() << ", ";
 	le->AddHP(this->gethpbonus());
 	cout << "體力回升到 " << le->GetHP() << endl;
 }
@@ -29,5 +29,5 @@ void Food::UnUsed(LifeEntity *le) {
 }
 
 int Food::IsA() {
-	return efood;
+	return FOOD;
 }

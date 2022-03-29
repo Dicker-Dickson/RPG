@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "GlobalInfo.h"
+#include "global_info.h"
 #include <fstream>
 
 using namespace std;

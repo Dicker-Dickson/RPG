@@ -1,7 +1,7 @@
 #include <iostream>
-#include "LifeEntity.h"
-#include "User.h"
-#include "def.h"
+#include "life_entity.h"
+#include "user.h"
+#include "definition.h"
 #include "adventurer.h"
 
 User::User() {
@@ -20,7 +20,7 @@ int User::get_current_city() {
 	return ((Adventurer *)user)->GetCurrentCity();
 }
 
-int User::MoveCity(int city)
+int User::MoveCity(int place)
 {
-	return ((Adventurer *)user)->MoveCity(city);
+	return ((Adventurer *)user)->MoveCity(place);
 }

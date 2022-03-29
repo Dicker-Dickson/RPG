@@ -91,7 +91,7 @@ void Magician::ShowSkill()
 
 int Magician::IsA()
 {
-	return magician;
+	return MAGICIAN;
 }
 
 int Magician::GetSkillNumber()

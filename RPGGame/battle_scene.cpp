@@ -1,5 +1,5 @@
 #include "battle_scene.h"
-#include "MonsterData.h"
+#include "monster_data.h"
 
 BattleScence::BattleScence()
 {
@@ -35,7 +35,7 @@ void BattleScence::askforbaglist(Adventurer *f) {
 
 Monster* BattleScence::MonsterSelection(Adventurer *f) {
 	int current_city = CGlobalInfo::user->get_current_city();
-	int monster_id = CGlobalInfo::map_data->GetRandomMonsterFromCity(current_city);
+	int monster_id = CGlobalInfo::map_data->GetBattleMonsters(current_city);
 	if (monster_id == -1)
 	{
 		Monster* m = nullptr;
@@ -135,7 +135,7 @@ void BattleScence::startfight(Monster *m, Adventurer *f) {
 
 		cout << "從怪物身上掉下寶物" << endl;
 		ItemData *id = CGlobalInfo::itm_data;
-		f->CaptureItem(id->getRand());
+		f->CaptureItem(id->GetRand());
 		cout << "從怪物身上掉下金錢" << endl;
 		int money = CGlobalInfo::itm_data->GenerateRandomMoney();
 		cout << money << endl;

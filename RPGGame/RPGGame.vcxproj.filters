@@ -4,16 +4,16 @@
     <ClCompile Include="battle_scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CmdParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="start_menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="selection_menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cmd_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpg_game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,13 +29,13 @@
     <ClInclude Include="battle_scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CmdParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="start_menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="selection_menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cmd_parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

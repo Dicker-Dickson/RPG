@@ -91,7 +91,7 @@ void Thief::ShowSkill()
 
 int Thief::IsA()
 {
-	return thief;
+	return THIEF;
 }
 
 int Thief::GetSkillNumber()

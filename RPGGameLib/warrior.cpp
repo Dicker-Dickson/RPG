@@ -90,7 +90,7 @@ void Warrior::ShowSkill()
 
 int Warrior::IsA()
 {
-	return warrior;
+	return WARRIOR;
 }
 
 int Warrior::GetSkillNumber()

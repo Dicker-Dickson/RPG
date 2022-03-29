@@ -1,7 +1,7 @@
 #ifndef ARMOR_H
 #define ARMOR_H
 
-#include "Item.h"
+#include "item.h"
 
 class Armor : public Item {
 public:
@@ -10,7 +10,7 @@ public:
 	void AddLevel(int);
 	virtual int GetLevel() override;
 	void SetLevel(int);
-	virtual void beUsed(LifeEntity *);
+	virtual void BeUsed(LifeEntity *);
 	virtual void UnUsed(LifeEntity *);
 	virtual int IsA() override;
 	virtual int GetBonous() override;

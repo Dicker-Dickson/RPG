@@ -4,7 +4,7 @@
 #include <string>
 #include "weapon.h"
 #include "armor.h"
-#include "def.h"
+#include "definition.h"
 
 using namespace std;
 

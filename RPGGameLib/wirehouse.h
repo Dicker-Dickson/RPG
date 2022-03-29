@@ -2,9 +2,9 @@
 #define WIREHOUSE_H
 
 #include <iostream>
-#include "GlobalInfo.h"
+#include "global_info.h"
 #include <vector>
-#include "Item.h"
+#include "item.h"
 
 #include <fstream>
 

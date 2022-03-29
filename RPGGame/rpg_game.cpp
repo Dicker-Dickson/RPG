@@ -1,18 +1,10 @@
-#include <iostream>
-#include <cstdlib>
-#include <string>
-#include <iterator>
-#include <sstream>
-#include <ctime>
-#include <windows.h>
-#include "Monster.h"
+#include "monster.h"
 #include "food.h"
-#include "MapData.h"
-#include "GlobalInfo.h"
-#include "CmdParser.h"
-#include "User.h"
-#include "MonsterData.h"
-#include <limits>
+#include "map_data.h"
+#include "global_info.h"
+#include "cmd_parser.h"
+#include "user.h"
+#include "monster_data.h"
 #include "battle_scene.h"
 #include "beginner.h"
 #include "adventurer_factory.h"
@@ -23,11 +15,21 @@
 #include "wirehouse.h"
 #include "skill_data.h"
 
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <iterator>
+#include <sstream>
+#include <ctime>
+
+#include <windows.h>
+#include <limits>
+
 using namespace std;
 
 ItemData *CGlobalInfo::itm_data = new ItemData;
-MapData *CGlobalInfo::map_data = new MapData;
-CCmdParser *CGlobalInfo::parser = new CCmdParser;
+MapData *CGlobalInfo::map_data = new MapData();
+CmdParser *CGlobalInfo::parser = new CmdParser;
 User *CGlobalInfo::user = new User;
 MonsterData *CGlobalInfo::monster_data = new MonsterData();
 AdventurerData *CGlobalInfo::adventurer_data = new AdventurerData();
@@ -37,7 +39,7 @@ SkillData* CGlobalInfo::skill_data = new SkillData();
 int Monster::counter_for_monster_id_ = 0;
 
 int main() {
-	CGlobalInfo::itm_data->Initialize();
+	CGlobalInfo::itm_data->Initial();
 	StartMenu * start_menu = new StartMenu();
 	start_menu->ShowMainMenu();
 	system("CLS");

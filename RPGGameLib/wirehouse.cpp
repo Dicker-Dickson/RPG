@@ -1,8 +1,8 @@
 #include "wirehouse.h"
 #include "food.h"
 #include "weapon.h"
-#include "ItemData.h"
-#include "Item.h"
+#include "item_data.h"
+#include "item.h"
 
 WireHouse::WireHouse()
 {
@@ -32,7 +32,7 @@ void WireHouse::Load()
 	while (fin >> name) {
 		for (int i = 0; i < food.size(); ++i)
 		{
-			if (food[i]->getName() == name)
+			if (food[i]->GetName() == name)
 			{
 				wire_house_data_.push_back(food[i]);
 				break;
@@ -40,7 +40,7 @@ void WireHouse::Load()
 		}
 		for (int i = 0; i < weapon.size(); ++i)
 		{
-			if (weapon[i]->getName() == name)
+			if (weapon[i]->GetName() == name)
 			{
 				wire_house_data_.push_back(weapon[i]);
 				break;
@@ -65,7 +65,7 @@ void WireHouse::ShowWireHouseData()
 	cout << "倉庫有的物品" << endl;
 	for (int i = 0; i < wire_house_data_.size(); ++i)
 	{
-		cout << i + 1 << "\t" << wire_house_data_[i]->getName() << endl;
+		cout << i + 1 << "\t" << wire_house_data_[i]->GetName() << endl;
 	}
 }
 
@@ -99,7 +99,7 @@ void WireHouse::Save()
 
 	for (int i = 0; i < wire_house_data_.size(); ++i)
 	{
-		fout << wire_house_data_[i]->getName() << "\n";
+		fout << wire_house_data_[i]->GetName() << "\n";
 	}
 	fout.close();
 }

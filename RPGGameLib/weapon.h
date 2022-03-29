@@ -1,7 +1,7 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include "Item.h"
+#include "item.h"
 
 class Weapon : public Item {
 public:
@@ -10,7 +10,7 @@ public:
 	virtual int GetLevel() override;
 	void AddLevel(int);
 	void SetLevel(int);
-	virtual void beUsed(LifeEntity *);
+	virtual void BeUsed(LifeEntity *);
 	virtual void UnUsed(LifeEntity *);
 	virtual int IsA();
 	virtual int GetBonous() override;

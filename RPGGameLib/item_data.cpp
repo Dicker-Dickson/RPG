@@ -1,34 +1,38 @@
-#include <fstream>
-#include <iostream>
-#include "Item.h"
+#include "item_data.h"
+#include "item.h"
 #include "food.h"
 #include "weapon.h"
 #include "armor.h"
-#include "ItemData.h"
-#include "GlobalInfo.h"
-#include "def.h"
-using namespace std;
 
-void ItemData::Initialize() {
+ItemData::ItemData()
+{
+}
+
+ItemData::~ItemData()
+{
+}
+
+void ItemData::Initial()
+{
 	LoadFoodData();
 	LoadWeaponData();
 	LoadArmorData();
 }
 
-int ItemData::totalsize() {
-	return food_array.size() + weapon_array.size() + armor_array_.size();
+int ItemData::TotalSize() {
+	return food_array_.size() + weapon_array_.size() + armor_array_.size();
 }
 
-Item *ItemData::getRand() {
-	unsigned int randnum = rand() % totalsize();
-	if (randnum < food_array.size()) {
-		return food_array[randnum];
+Item *ItemData::GetRand() {
+	unsigned int randnum = rand() % TotalSize();
+	if (randnum < food_array_.size()) {
+		return food_array_[randnum];
 	}
-	randnum -= food_array.size();
-	if (randnum < weapon_array.size()) {
-		return weapon_array[randnum];
+	randnum -= food_array_.size();
+	if (randnum < weapon_array_.size()) {
+		return weapon_array_[randnum];
 	}
-	randnum -= weapon_array.size();
+	randnum -= weapon_array_.size();
 	if (randnum < armor_array_.size()) {
 		return armor_array_[randnum];
 	}
@@ -43,39 +47,39 @@ int ItemData::GenerateRandomMoney()
 void ItemData::ShowAllItem()
 {
 	cout << left << setw(15) << "干倒珇" << left << setw(15) << "確" << left << setw(15) << "基" << endl;
-	for (int i = 0; i < food_array.size(); ++i)
+	for (int i = 0; i < food_array_.size(); ++i)
 	{
-		cout << left << setw(15) << food_array[i]->getName() << left << setw(15) << food_array[i]->gethpbonus() << left << setw(15) << food_array[i]->GetMoney() << endl;
+		cout << left << setw(15) << food_array_[i]->GetName() << left << setw(15) << food_array_[i]->gethpbonus() << left << setw(15) << food_array_[i]->GetMoney() << endl;
 	}
 	cout << left << setw(15) << "猌竟:" << left << setw(15) << "ю阑" << left << setw(15) << "基" << endl;
-	for (int i = 0; i < weapon_array.size(); ++i)
+	for (int i = 0; i < weapon_array_.size(); ++i)
 	{
-		cout << left << setw(15) << weapon_array[i]->getName() << left << setw(15) << weapon_array[i]->getAttackbonus() << setw(15) << weapon_array[i]->GetMoney() << endl;
+		cout << left << setw(15) << weapon_array_[i]->GetName() << left << setw(15) << weapon_array_[i]->getAttackbonus() << setw(15) << weapon_array_[i]->GetMoney() << endl;
 	}
 	cout << left << setw(15) << "礟:" << left << setw(15) << "ň縨" << left << setw(15) << "基" << endl;
 	for (int i = 0; i < armor_array_.size(); ++i)
 	{
-		cout << left << setw(15) << armor_array_[i]->getName() << left << setw(15) << armor_array_[i]->GetDefenseBonus() << setw(15) << armor_array_[i]->GetMoney() << endl;
+		cout << left << setw(15) << armor_array_[i]->GetName() << left << setw(15) << armor_array_[i]->GetDefenseBonus() << setw(15) << armor_array_[i]->GetMoney() << endl;
 	}
 }
 
 void ItemData::ShowFood()
 {
 	cout << left << setw(15) << "絪腹" << left << setw(15) << "干倒珇" << left << setw(15) << "確" << left << setw(15) << "基" << endl;
-	for (int i = 0; i < food_array.size(); ++i)
+	for (int i = 0; i < food_array_.size(); ++i)
 	{
-		cout << left << setw(15) << food_array[i]->getID() << left << setw(15) << food_array[i]->getName() << left << setw(15) << food_array[i]->gethpbonus() << left << setw(15) << food_array[i]->GetMoney() << endl;
+		cout << left << setw(15) << food_array_[i]->GetID() << left << setw(15) << food_array_[i]->GetName() << left << setw(15) << food_array_[i]->gethpbonus() << left << setw(15) << food_array_[i]->GetMoney() << endl;
 	}
 }
 
 void ItemData::ShowWeapon()
 {
 	cout << left << setw(15) << "絪腹" << left << setw(15) << "猌竟:" << left << setw(15) << "ю阑" << left << setw(15) << "基" << setw(15) << "单" << endl;
-	for (int i = 0; i < weapon_array.size(); ++i)
+	for (int i = 0; i < weapon_array_.size(); ++i)
 	{
-		cout << left << setw(15) << weapon_array[i]->getID() << left << setw(15) <<
-			weapon_array[i]->getName() << left << setw(15) << weapon_array[i]->getAttackbonus()
-			<< setw(15) << weapon_array[i]->GetMoney() << setw(15) << weapon_array[i]->GetLevel() << endl;
+		cout << left << setw(15) << weapon_array_[i]->GetID() << left << setw(15) <<
+			weapon_array_[i]->GetName() << left << setw(15) << weapon_array_[i]->getAttackbonus()
+			<< setw(15) << weapon_array_[i]->GetMoney() << setw(15) << weapon_array_[i]->GetLevel() << endl;
 	}
 }
 
@@ -84,21 +88,21 @@ void ItemData::ShowArmor()
 	cout << left << setw(15) << "絪腹" << left << setw(15) << "礟:" << left << setw(15) << "ň縨" << left << setw(15) << "基" << setw(15) << "单" << endl;
 	for (int i = 0; i < armor_array_.size(); ++i)
 	{
-		cout << left << setw(15) << armor_array_[i]->getID() << left << setw(15) << armor_array_[i]->getName() << left << setw(15) << armor_array_[i]->GetDefenseBonus() << setw(15) << armor_array_[i]->GetMoney() << setw(15) << armor_array_[i]->GetLevel() << endl;
+		cout << left << setw(15) << armor_array_[i]->GetID() << left << setw(15) << armor_array_[i]->GetName() << left << setw(15) << armor_array_[i]->GetDefenseBonus() << setw(15) << armor_array_[i]->GetMoney() << setw(15) << armor_array_[i]->GetLevel() << endl;
 	}
 }
 
 Item * ItemData::GetItemById(int id, int type)
 {
-	if (type == efood && id < food_array.size())
+	if (type == FOOD && id < food_array_.size())
 	{
-		return food_array[id];
+		return food_array_[id];
 	}
-	else if (type == eweapon &&id < weapon_array.size())
+	else if (type == WEAPON &&id < weapon_array_.size())
 	{
-		return weapon_array[id];
+		return weapon_array_[id];
 	}
-	else if (type == armor && id < armor_array_.size())
+	else if (type == ARMOR && id < armor_array_.size())
 	{
 		return armor_array_[id];
 	}
@@ -107,12 +111,12 @@ Item * ItemData::GetItemById(int id, int type)
 
 vector<Food*> ItemData::GetFoodItem()
 {
-	return food_array;
+	return food_array_;
 }
 
 vector<Weapon*> ItemData::GetWeaponItem()
 {
-	return weapon_array;
+	return weapon_array_;
 }
 
 vector<Armor*> ItemData::GetArmorItem()
@@ -134,8 +138,7 @@ void ItemData::LoadFoodData() {
 	while (!fin.eof()) {
 		fin >> inID >> name >> hp_bonus >> money;
 		food = new Food(name, 0, 0, inID, hp_bonus, money);
-		CGlobalInfo::itm_data->food_array.push_back(food);
-		//cout << name << " " << hp_bonus << endl;
+		CGlobalInfo::itm_data->food_array_.push_back(food);
 	}
 	fin.close();
 }
@@ -155,8 +158,7 @@ void ItemData::LoadWeaponData() {
 	while (!fin.eof()) {
 		fin >> inID >> name >> Attack_bonus >> money >> level;
 		weapon = new Weapon(name, 0, 0, inID, Attack_bonus, money, level);
-		CGlobalInfo::itm_data->weapon_array.push_back(weapon);
-		//cout << name << " " << hp_bonus << endl;
+		CGlobalInfo::itm_data->weapon_array_.push_back(weapon);
 	}
 	fin.close();
 }

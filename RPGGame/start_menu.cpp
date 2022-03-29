@@ -168,6 +168,8 @@ void StartMenu::ChoiseAdventurer()
 
 void StartMenu::NewFolder(string path)
 {
+	_mkdir("./data");
+
 	string p = "./data/" + path;
 
 	_mkdir(p.c_str());

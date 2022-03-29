@@ -1,13 +1,13 @@
 #ifndef SELECTION_MENU_H
 #define SELECTION_MENU_H
 
-#include "GlobalInfo.h"
+#include "global_info.h"
 #include "adventurer_data.h"
 #include <iostream>
-#include "ItemData.h"
+#include "item_data.h"
 #include <ctime>
-#include "MapData.h"
-#include "CmdParser.h"
+#include "map_data.h"
+#include "cmd_parser.h"
 #include "beginner.h"
 #include "warrior.h"
 #include "thief.h"
@@ -16,7 +16,7 @@
 #include "adventurer_factory.h"
 #include "adventurer_data.h"
 #include "battle_scene.h"
-#include "User.h"
+#include "user.h"
 #include "store.h"
 #include "wirehouse.h"
 #include "skill_data.h"
@@ -58,9 +58,9 @@ private:
 	void Initialize();
 
 	Adventurer* fighter_;
-	map<string, void(*)> mappingfunc;
+	map<string, void(*)> mapping_function_;
 	BattleScence* battle_scence;
 
-	void splitstring(const string& s, vector<string>& v, const string& c);
+	void SplitString(const string& s, vector<string>& v, const string& c);
 };
 #endif

@@ -134,5 +134,5 @@ vector<Skill*> Archer::GetSkill()
 
 int Archer::IsA()
 {
-	return archer;
+	return ARCHER;
 }

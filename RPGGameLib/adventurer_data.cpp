@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include "adventurer_data.h"
-#include "ItemData.h"
-#include "Item.h"
+#include "item_data.h"
+#include "item.h"
 #include "Bag.h"
 #include "food.h"
 #include "weapon.h"
@@ -236,7 +236,7 @@ void AdventurerData::SaveBagFood(vector<Item*> food)
 
 	for (int i = 0; i < food.size(); ++i)
 	{
-		fout << food[i]->getName() << "\n";
+		fout << food[i]->GetName() << "\n";
 	}
 	fout.close();
 }
@@ -254,7 +254,7 @@ void AdventurerData::SaveBagWeapon(vector<Item*> weapon)
 
 	for (int i = 0; i < weapon.size(); ++i)
 	{
-		fout << weapon[i]->getName() << "\t" << weapon[i]->GetLevel() << "\n";
+		fout << weapon[i]->GetName() << "\t" << weapon[i]->GetLevel() << "\n";
 	}
 	fout.close();
 }
@@ -272,7 +272,7 @@ void AdventurerData::SaveBagArmor(vector<Item*>armor)
 
 	for (int i = 0; i < armor.size(); ++i)
 	{
-		fout << armor[i]->getName() << "\t" << armor[i]->GetLevel() << "\n";
+		fout << armor[i]->GetName() << "\t" << armor[i]->GetLevel() << "\n";
 	}
 	fout.close();
 }
@@ -291,7 +291,7 @@ void AdventurerData::LoadBagFood(string user, string id)
 	while (fin >> name) {
 		for (int i = 0; i < food.size(); ++i)
 		{
-			if (food[i]->getName() == name)
+			if (food[i]->GetName() == name)
 			{
 				item_.push_back(food[i]);
 				break;
@@ -315,7 +315,7 @@ void AdventurerData::LoadBagWeapon(string user, string id)
 	while (fin >> name >> level) {
 		for (int i = 0; i < weapon.size(); ++i)
 		{
-			if (weapon[i]->getName() == name)
+			if (weapon[i]->GetName() == name)
 			{
 				weapon[i]->SetLevel(level);
 				item_.push_back(weapon[i]);
@@ -340,7 +340,7 @@ void AdventurerData::LoadBagArmor(string user, string id)
 	while (fin >> name >> level) {
 		for (int i = 0; i < armor.size(); ++i)
 		{
-			if (armor[i]->getName() == name)
+			if (armor[i]->GetName() == name)
 			{
 				armor[i]->SetLevel(level);
 				item_.push_back(armor[i]);
@@ -411,7 +411,7 @@ vector<Item*> AdventurerData::LoadEquipment(string id)
 	while (fin >> name >> level) {
 		for (int i = 0; i < weapon.size(); ++i)
 		{
-			if (weapon[i]->getName() == name)
+			if (weapon[i]->GetName() == name)
 			{
 				weapon[i]->SetLevel(level);
 				equipment_.push_back(weapon[i]);
@@ -420,7 +420,7 @@ vector<Item*> AdventurerData::LoadEquipment(string id)
 		}
 		for (int i = 0; i < armor.size(); ++i)
 		{
-			if (armor[i]->getName() == name)
+			if (armor[i]->GetName() == name)
 			{
 				armor[i]->SetLevel(level);
 				equipment_.push_back(armor[i]);
@@ -445,7 +445,7 @@ void AdventurerData::SaveEquipment(vector<Item*> equipment)
 
 	for (int i = 0; i < equipment.size(); ++i)
 	{
-		fout << equipment[i]->getName() << "\t" << equipment[i]->GetLevel() << "\n";
+		fout << equipment[i]->GetName() << "\t" << equipment[i]->GetLevel() << "\n";
 	}
 	fout.close();
 }

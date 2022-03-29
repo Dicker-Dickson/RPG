@@ -1,8 +1,8 @@
 #include "adventurer.h"
 #include <iostream>
 #include "food.h"
-#include "GlobalInfo.h"
-#include "MapData.h"
+#include "global_info.h"
+#include "map_data.h"
 #include "skill.h"
 
 Adventurer::Adventurer()
@@ -48,12 +48,12 @@ int Adventurer::Defense()
 
 void Adventurer::CaptureItem(Item *in_item)
 {
-	BagEntry *entry = bag_->item_lookup(in_item->IsA(), in_item->getID());
+	BagEntry *entry = bag_->LookUpItem(in_item->IsA(), in_item->GetID());
 	if (!entry)
-		bag_->item_insert(in_item);
+		bag_->InsertItem(in_item);
 	else
-		entry->addNum(1);
-	cout << this->GetName() << " 從地上撿起 " << in_item->getName() << endl;
+		entry->AddNumber(1);
+	cout << this->GetName() << " 從地上撿起 " << in_item->GetName() << endl;
 }
 
 vector<Item*> Adventurer::GetBagAllFood()
@@ -73,27 +73,27 @@ vector<Item*> Adventurer::GetBagAllArmor()
 
 void Adventurer::PutItem(Item *in_item)
 {
-	BagEntry *entry = bag_->item_lookup(in_item->IsA(), in_item->getID());
+	BagEntry *entry = bag_->LookUpItem(in_item->IsA(), in_item->GetID());
 	if (!entry)
 	{
-		bag_->item_insert(in_item);
+		bag_->InsertItem(in_item);
 	}
 	else
 	{
-		entry->addNum(1);
+		entry->AddNumber(1);
 	}
 }
 
 Item * Adventurer::GetItem(int no)
 {
-	BagEntry* ne = bag_->item_lookup(no);
+	BagEntry* ne = bag_->LookUpItem(no);
 	if (ne)
 	{
-		auto temp = ne->itm;
-		ne->deleteNum(1);
-		if (ne->getNum() == 0)
+		auto temp = ne->item_;
+		ne->DeleteNumber(1);
+		if (ne->GetNumber() == 0)
 		{
-			bag_->item_delete(ne);
+			bag_->DeleteItem(ne);
 		}
 		return temp;
 	}
@@ -117,24 +117,24 @@ vector<Item *> Adventurer::GetEquipment()
 
 void Adventurer::BuyItem(Item * in_item)
 {
-	BagEntry *entry = bag_->item_lookup(in_item->IsA(), in_item->getID());
+	BagEntry *entry = bag_->LookUpItem(in_item->IsA(), in_item->GetID());
 	if (!entry)
-		bag_->item_insert(in_item);
+		bag_->InsertItem(in_item);
 	else
-		entry->addNum(1);
-	cout << this->GetName() << " 買入 " << in_item->getName() << endl;
+		entry->AddNumber(1);
+	cout << this->GetName() << " 買入 " << in_item->GetName() << endl;
 }
 
 bool Adventurer::SellItem(Item *in_item)
 {
-	BagEntry *entry = bag_->item_lookup(in_item->IsA(), in_item->getID());
+	BagEntry *entry = bag_->LookUpItem(in_item->IsA(), in_item->GetID());
 	if (entry)
 	{
-		cout << "賣出" << in_item->getName() << endl;
-		entry->deleteNum(1);
-		if (entry->getNum() == 0)
+		cout << "賣出" << in_item->GetName() << endl;
+		entry->DeleteNumber(1);
+		if (entry->GetNumber() == 0)
 		{
-			bag_->item_delete(entry);
+			bag_->DeleteItem(entry);
 		}
 		return true;
 	}
@@ -148,13 +148,13 @@ bool Adventurer::SellItem(Item *in_item)
 
 void Adventurer::CaptureMoney(int money)
 {
-	bag_->AddMoeny(money);
+	bag_->PlusMoeny(money);
 	SaveMoney();
 }
 
 int Adventurer::ShowAllBagItems()
 {
-	return bag_->showAllItems();
+	return bag_->ShowAllItems();
 }
 
 void Adventurer::ShowMoney()
@@ -164,7 +164,7 @@ void Adventurer::ShowMoney()
 
 bool Adventurer::UseBagItems(int no)
 {
-	BagEntry* ne = bag_->item_lookup(no);
+	BagEntry* ne = bag_->LookUpItem(no);
 	if (!ne) {
 		return false;
 	}
@@ -174,105 +174,105 @@ bool Adventurer::UseBagItems(int no)
 		system("Pause");
 		return false;
 	}
-	if (ne->itm->IsA() == eweapon) {
+	if (ne->item_->IsA() == WEAPON) {
 		Weapon *cur_weapon = this->GetWeapon();
 		if (cur_weapon != NULL) {
 			Item *weapon_item = (Item *)cur_weapon;
-			BagEntry *entry = bag_->item_lookup(weapon_item->IsA(), weapon_item->getID());
+			BagEntry *entry = bag_->LookUpItem(weapon_item->IsA(), weapon_item->GetID());
 			if (!entry)
-				bag_->item_insert(weapon_item);
+				bag_->InsertItem(weapon_item);
 			else
-				entry->addNum(1);
-			cout << this->GetName() << " 將手上武器 " << weapon_item->getName() << " 放回背包中" << endl;
+				entry->AddNumber(1);
+			cout << this->GetName() << " 將手上武器 " << weapon_item->GetName() << " 放回背包中" << endl;
 			weapon_item->UnUsed(this);
 		}
-		this->SetWeapon((Weapon *)ne->itm);
+		this->SetWeapon((Weapon *)ne->item_);
 	}
-	else if (ne->itm->IsA() == armor) {
+	else if (ne->item_->IsA() == ARMOR) {
 		Armor *cur_armor = this->GetArmor();
 		if (cur_armor != NULL) {
 			Item *armor_item = (Item *)cur_armor;
-			BagEntry *entry = bag_->item_lookup(armor_item->IsA(), armor_item->getID());
+			BagEntry *entry = bag_->LookUpItem(armor_item->IsA(), armor_item->GetID());
 			if (!entry)
-				bag_->item_insert(armor_item);
+				bag_->InsertItem(armor_item);
 			else
-				entry->addNum(1);
-			cout << this->GetName() << " 將手上盾牌 " << armor_item->getName() << " 放回背包中" << endl;
+				entry->AddNumber(1);
+			cout << this->GetName() << " 將手上盾牌 " << armor_item->GetName() << " 放回背包中" << endl;
 			armor_item->UnUsed(this);
 		}
-		this->SetArmor((Armor *)ne->itm);
+		this->SetArmor((Armor *)ne->item_);
 	}
 
-	if (ne->itm->getName() == "防禦藥水")
+	if (ne->item_->GetName() == "防禦藥水")
 	{
-		Food * food = (Food *)ne->itm;
+		Food * food = (Food *)ne->item_;
 		defense_skill_count = 3;
 		AddDefense(food->GetBonous());
-		ne->deleteNum();
-		if (ne->getNum() == 0) {
-			bag_->item_delete(ne);
+		ne->DeleteNumber();
+		if (ne->GetNumber() == 0) {
+			bag_->DeleteItem(ne);
 		}
 		this->ShowAllBagItems();
 		return true;
 	}
-	else if (ne->itm->getName() == "攻擊藥水")
+	else if (ne->item_->GetName() == "攻擊藥水")
 	{
-		Food * food = (Food *)ne->itm;
+		Food * food = (Food *)ne->item_;
 		attack_skill_count = 3;
 		attack_increase_value = food->GetBonous();
-		ne->deleteNum();
-		if (ne->getNum() == 0) {
-			bag_->item_delete(ne);
+		ne->DeleteNumber();
+		if (ne->GetNumber() == 0) {
+			bag_->DeleteItem(ne);
 		}
 		this->ShowAllBagItems();
 		return true;
 	}
-	else if (ne->itm->getName() == "藍色藥水")
+	else if (ne->item_->GetName() == "藍色藥水")
 	{
 		AddMP(50);
 
-		ne->deleteNum();
-		if (ne->getNum() == 0) {
-			bag_->item_delete(ne);
+		ne->DeleteNumber();
+		if (ne->GetNumber() == 0) {
+			bag_->DeleteItem(ne);
 		}
 		this->ShowAllBagItems();
 		return true;
 	}
-	else if (ne->itm->getName() == "活力藥水")
+	else if (ne->item_->GetName() == "活力藥水")
 	{
 		AddMP(150);
 
-		ne->deleteNum();
-		if (ne->getNum() == 0) {
-			bag_->item_delete(ne);
+		ne->DeleteNumber();
+		if (ne->GetNumber() == 0) {
+			bag_->DeleteItem(ne);
 		}
 		this->ShowAllBagItems();
 		return true;
 	}
-	ne->itm->beUsed(this);
-	ne->deleteNum();
-	if (ne->getNum() == 0) {
-		bag_->item_delete(ne);
+	ne->item_->BeUsed(this);
+	ne->DeleteNumber();
+	if (ne->GetNumber() == 0) {
+		bag_->DeleteItem(ne);
 	}
 	this->ShowAllBagItems();
 	return true;
 }
 
-int Adventurer::GoToNextCity(int next_dir)
+int Adventurer::GoToNextCity(int next_direction)
 {
-	int NextCity = CGlobalInfo::map_data->NextCity(current_city_, next_dir);
-	if (NextCity) {
-		current_city_ = NextCity;
+	int NextPlace = CGlobalInfo::map_data->NextPlace(current_city_, next_direction);
+	if (NextPlace) {
+		current_city_ = NextPlace;
 		return current_city_;
 	}
 	return 0;
 }
 
-int Adventurer::MoveCity(int city)
+int Adventurer::MoveCity(int place)
 {
-	if (city > 0 && city < 7)
+	if (place > 0 && place < 7)
 	{
-		current_city_ = city;
+		current_city_ = place;
 		return current_city_;
 	}
 	else
@@ -286,7 +286,7 @@ int Adventurer::GetCurrentCity()
 
 int Adventurer::IsA()
 {
-	return adventurer;
+	return ADVENTURER;
 }
 
 void Adventurer::AddDefense(int value)
@@ -368,11 +368,11 @@ void Adventurer::ReadData()
 	auto item_data = CGlobalInfo::adventurer_data->GetBagItem(id - 1);
 	for (int i = 0; i < item_data.size(); ++i)
 	{
-		BagEntry *entry = bag_->item_lookup(item_data[i]->IsA(), item_data[i]->getID());
+		BagEntry *entry = bag_->LookUpItem(item_data[i]->IsA(), item_data[i]->GetID());
 		if (!entry)
-			bag_->item_insert(item_data[i]);
+			bag_->InsertItem(item_data[i]);
 		else
-			entry->addNum(1);
+			entry->AddNumber(1);
 	}
 
 	auto skill = CGlobalInfo::adventurer_data->LoadSkill(to_string(id - 1));
@@ -384,11 +384,11 @@ void Adventurer::ReadData()
 	auto equipment = CGlobalInfo::adventurer_data->LoadEquipment(to_string(id - 1));
 	for (int i = 0; i < equipment.size(); ++i)
 	{
-		if (equipment[i]->IsA() == eweapon)
+		if (equipment[i]->IsA() == WEAPON)
 		{
 			this->SetWeapon((Weapon*)equipment[i]);
 		}
-		else if (equipment[i]->IsA() == armor)
+		else if (equipment[i]->IsA() == ARMOR)
 		{
 			this->SetArmor((Armor*)equipment[i]);
 		}
@@ -433,20 +433,20 @@ int Adventurer::GetSkillPoints()
 
 bool Adventurer::IsCareerSpecialEquipment(BagEntry* ne)
 {
-	auto weapon_name = ne->itm->getName();
-	if (weapon_name == "武士刀" &&IsA() != warrior)
+	auto weapon_name = ne->item_->GetName();
+	if (weapon_name == "武士刀" &&IsA() != WARRIOR)
 	{
 		return false;
 	}
-	else if (weapon_name == "精靈短杖" &&IsA() != magician)
+	else if (weapon_name == "精靈短杖" &&IsA() != MAGICIAN)
 	{
 		return false;
 	}
-	else if (weapon_name == "戰鬥弓"&& IsA() != archer)
+	else if (weapon_name == "戰鬥弓"&& IsA() != ARCHER)
 	{
 		return false;
 	}
-	else if (weapon_name == "飛影刃"&& IsA() != thief)
+	else if (weapon_name == "飛影刃"&& IsA() != THIEF)
 	{
 		return false;
 	}
@@ -518,12 +518,12 @@ void Adventurer::PrintEquipment()
 {
 	Weapon *cur_weapon = this->GetWeapon();
 	if (cur_weapon)
-		cout << "身上的武器為:" << cur_weapon->getName() << " 等級為:" << cur_weapon->GetLevel()
+		cout << "身上的武器為:" << cur_weapon->GetName() << " 等級為:" << cur_weapon->GetLevel()
 		<< "攻擊力為:" << cur_weapon->getAttackbonus() + cur_weapon->GetLevel() * 5 << endl;
 
 	Armor * cur_armor = this->GetArmor();
 	if (cur_armor)
-		cout << "身上的盾牌:" << cur_armor->getName() << " 等級為:" << cur_armor->GetLevel() <<
+		cout << "身上的盾牌:" << cur_armor->GetName() << " 等級為:" << cur_armor->GetLevel() <<
 		"防禦力為:" << cur_armor->GetDefenseBonus() + cur_armor->GetLevel() * 3 << endl;
 }
 
@@ -532,9 +532,9 @@ void Adventurer::SaveMoney()
 	attribute_.money = bag_->GetMoney();
 }
 
-void Adventurer::AddMoney(int money)
+void Adventurer::PlusMoney(int money)
 {
-	bag_->AddMoeny(money);
+	bag_->PlusMoeny(money);
 	SaveMoney();
 }
 

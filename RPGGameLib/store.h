@@ -2,7 +2,7 @@
 #define STORE_H
 
 #include <vector>
-#include "GlobalInfo.h"
+#include "global_info.h"
 
 class ItemData;
 class Item;

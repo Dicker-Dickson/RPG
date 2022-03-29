@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "GlobalInfo.h"
+#include "global_info.h"
 #include <sstream>
 #include "skill_data.h"
 #include "skill.h"

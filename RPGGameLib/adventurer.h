@@ -1,11 +1,11 @@
 #ifndef ADVENTURER_H
 #define ADVENTURER_H
 
-#include "LifeEntity.h"
+#include "life_entity.h"
 #include "adventurer_data.h"
 #include "string"
 #include "bag.h"
-#include "def.h"
+#include "definition.h"
 
 #define FIGHTER_MAXHP 100
 #define FIGHTER_MAXSP 100
@@ -39,8 +39,8 @@ public:
 	int ShowAllBagItems();
 	void ShowMoney();
 	bool UseBagItems(int no);
-	int GoToNextCity(int next_dir);
-	int MoveCity(int city);
+	int GoToNextCity(int next_direction);
+	int MoveCity(int place);
 	int GetCurrentCity();
 	virtual int IsA() override;
 	virtual bool IsLevelUp() = 0;
@@ -65,7 +65,7 @@ public:
 	void PrintAdventurerAttribute();
 	void PrintEquipment();
 	void SaveMoney();
-	void AddMoney(int money);
+	void PlusMoney(int money);
 	void MinusMoney(int money);
 	int GetMoney();
 

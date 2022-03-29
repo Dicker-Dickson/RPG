@@ -59,12 +59,12 @@ void SelectionMenu::ShowSelectionMenu()
 
 void SelectionMenu::ShowMap()
 {
-	int cur_city = CGlobalInfo::user->get_current_city();
-	CGlobalInfo::map_data->ShowDescription(cur_city);
-	while (CGlobalInfo::parser->query() >= 0)
+	int current_place_id = CGlobalInfo::user->get_current_city();
+	CGlobalInfo::map_data->ShowDescription(current_place_id);
+	while (CGlobalInfo::parser->Query() >= 0)
 	{
 		int current_city = CGlobalInfo::user->get_current_city();
-		CGlobalInfo::map_data->GenrateMonstersByPlaceId(current_city);
+		CGlobalInfo::map_data->GenrateMonstersInPlace(current_city);
 
 		cout << "戰鬥輸入Y,退出輸入Q，刷新地圖輸入任意內容，想去其他地方輸入指令ex: move 勇士之村, move (south, east....)" << endl;
 		string temp = "";
@@ -138,27 +138,27 @@ void SelectionMenu::ShowLearnSkill()
 	{
 		system("CLS");
 		auto career = fighter_->IsA();
-		if (career == beginner)
+		if (career == BEGINNER)
 		{
 			cout << "初心者沒有辦法習得技能" << endl;
 			system("Pause");
 			return;
 		}
-		else if (career == warrior || career == magician || career == thief || career == archer)
+		else if (career == WARRIOR || career == MAGICIAN || career == THIEF || career == ARCHER)
 		{
-			if (career == warrior)
+			if (career == WARRIOR)
 			{
 				CGlobalInfo::skill_data->ShowWarriorSkill();
 			}
-			else if (career == magician)
+			else if (career == MAGICIAN)
 			{
 				CGlobalInfo::skill_data->ShowMagicianSkill();
 			}
-			else if (career == thief)
+			else if (career == THIEF)
 			{
 				CGlobalInfo::skill_data->ShowThiefSkill();
 			}
-			else if (career == archer)
+			else if (career == ARCHER)
 			{
 				CGlobalInfo::skill_data->ShowArcherSkill();
 			}
@@ -272,7 +272,7 @@ void SelectionMenu::ShowBuyFoodMenu()
 			system("Pause");
 			continue;
 		}
-		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, efood);
+		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, FOOD);
 		if (!item)
 		{
 			cout << "請輸入補給品的id" << endl;
@@ -322,7 +322,7 @@ void SelectionMenu::ShowBuyWeaponMenu()
 			system("Pause");
 			continue;
 		}
-		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, eweapon);
+		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, WEAPON);
 		if (!item)
 		{
 			cout << "請輸入武器的id" << endl;
@@ -372,7 +372,7 @@ void SelectionMenu::ShowBuyArmorMenu()
 			continue;
 		}
 
-		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, armor);
+		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, ARMOR);
 		if (!item)
 		{
 			cout << "請輸入盾牌的id" << endl;
@@ -447,7 +447,7 @@ void SelectionMenu::ShowSellFoodMenu()
 			system("Pause");
 			continue;
 		}
-		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, efood);
+		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, FOOD);
 		if (!item)
 		{
 			cout << "請輸入補給品的id" << endl;
@@ -458,7 +458,7 @@ void SelectionMenu::ShowSellFoodMenu()
 
 		if (fighter_->SellItem(item))
 		{
-			fighter_->AddMoney(item_money);
+			fighter_->PlusMoney(item_money);
 
 			auto attribute = fighter_->GetAttribute();
 			CGlobalInfo::adventurer_data->Save(attribute);
@@ -492,7 +492,7 @@ void SelectionMenu::ShowSellWeaponMenu()
 			system("Pause");
 			continue;
 		}
-		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, eweapon);
+		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, WEAPON);
 		if (!item)
 		{
 			cout << "請輸入武器的id" << endl;
@@ -503,7 +503,7 @@ void SelectionMenu::ShowSellWeaponMenu()
 
 		if (fighter_->SellItem(item))
 		{
-			fighter_->AddMoney(item_money);
+			fighter_->PlusMoney(item_money);
 
 			auto attribute = fighter_->GetAttribute();
 			CGlobalInfo::adventurer_data->Save(attribute);
@@ -536,7 +536,7 @@ void SelectionMenu::ShowSellArmorMenu()
 			system("Pause");
 			continue;
 		}
-		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, armor);
+		auto item = CGlobalInfo::itm_data->GetItemById(stoi(t) - 1, ARMOR);
 		if (!item)
 		{
 			cout << "請輸入盾牌的id" << endl;
@@ -547,7 +547,7 @@ void SelectionMenu::ShowSellArmorMenu()
 
 		if (fighter_->SellItem(item))
 		{
-			fighter_->AddMoney(item_money);
+			fighter_->PlusMoney(item_money);
 
 			auto attribute = fighter_->GetAttribute();
 			CGlobalInfo::adventurer_data->Save(attribute);
@@ -590,7 +590,7 @@ void SelectionMenu::ShowLevelUpWeaponMenu()
 		auto w = fighter_->GetWeapon();
 		if (w)
 		{
-			cout << "目前武器為:" << w->getName() << " 等級為:" << w->GetLevel() << endl;
+			cout << "目前武器為:" << w->GetName() << " 等級為:" << w->GetLevel() << endl;
 			cout << "返回請輸入Q，升級一次需花費300楓幣，請輸入Y" << endl;
 			string t;
 			cin >> t;
@@ -638,7 +638,7 @@ void SelectionMenu::ShowLevelUpArmorMenu()
 		auto a = fighter_->GetArmor();
 		if (a)
 		{
-			cout << "目前盾牌為:" << a->getName() << " 等級為:" << a->GetLevel() << endl;
+			cout << "目前盾牌為:" << a->GetName() << " 等級為:" << a->GetLevel() << endl;
 			cout << "返回請輸入Q，升級一次需花費300楓幣，請輸入Y" << endl;
 			string t;
 			cin >> t;
@@ -974,6 +974,6 @@ void SelectionMenu::GoBattle()
 	system("Pause");
 }
 
-void SelectionMenu::splitstring(const string & s, vector<string>& v, const string & c)
+void SelectionMenu::SplitString(const string & s, vector<string>& v, const string & c)
 {
 }
